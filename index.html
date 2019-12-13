@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="manifest" href="/it202-final/manifest.json">
 
     <style>
       body {margin: 0;}
@@ -137,7 +138,6 @@
 </div>
 
 
-
     <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
     <script>
       var db = new Dexie("finapp");
@@ -176,6 +176,7 @@
       });
 
 
+
       // close drawer on selection
 //       let navs = document.getElementsByClassName("mdc-list-item");
 
@@ -189,11 +190,14 @@
         }
 
         $("nav.mdc-list a.mdc-list-item").on("click", function(e) {
-           console.log($(this))
            hideScreens();
+           $("#content").html("");
+
            let file = "page-content/" + $(this).attr("href").replace("#","") + ".html";
 
            $("#content").load(file);
+           hideScreens();
+
            drawer.open = false;
 
 
@@ -225,20 +229,66 @@
 
 
     </script>
+  <script>
+    // Note: This example requires that you consent to location sharing when
+    // prompted by your browser. If you see the error "The Geolocation service
+    // failed.", it means you probably did not give permission for the browser to
+    // locate you.
+    var map, infoWindow;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 6
+      });
+      infoWindow = new google.maps.InfoWindow;
+
+      // Try HTML5 geolocation.
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+
+          infoWindow.setPosition(pos);
+          infoWindow.setContent('Location found.');
+          infoWindow.open(map);
+          map.setCenter(pos);
+        }, function() {
+          handleLocationError(true, infoWindow, map.getCenter());
+        });
+      } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+      }
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(browserHasGeolocation ?
+                            'Error: The Geolocation service failed.' :
+                            'Error: Your browser doesn\'t support geolocation.');
+      infoWindow.open(map);
+    }
+  </script>
+
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCIK4Z-9uO_KmcNAexRKsIpCZrgI-I5aA&callback=initMap"
+      async defer></script>
 
 
     <div class="mdc-card demo-card">
       <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-        <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(https://api.nasa.gov/planetary/apod?api_key=nxtMjihbq1ZPBiPcUKOym6IlVMvD4bEeNvJTbS1l;);"></div>
+        <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://apod.nasa.gov/apod/image/1912/gem16otjcc1100.jpg&quot;);"></div>
         <div class="demo-card__primary">
           <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Our Changing Planet</h2>
-          <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">by Kurt Wagner</h3>
+          <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">by Juan Carlos Casado</h3>
         </div>
-        <div class="demo-card__secondary mdc-typography mdc-typography--body2">Visit ten places on our planet that are undergoing the biggest changes today.</div>
+        <div class="demo-card__secondary mdc-typography mdc-typography--body2">2019-12-13</div>
       </div>
       <div class="mdc-card__actions">
         <div class="mdc-card__action-buttons">
-          <button class="mdc-button mdc-card__action mdc-card__action--button">  <span class="mdc-button__ripple"></span> Read</button>
+          <button class="mdc-button mdc-card__action mdc-card__action--button"><a href="https://apod.nasa.gov/apod/image/1912/gem16otjcc2500.jpg">View Hd image</a></button>
           <button class="mdc-button mdc-card__action mdc-card__action--button">  <span class="mdc-button__ripple"></span> Bookmark</button>
         </div>
         <div class="mdc-card__action-icons">
@@ -252,24 +302,13 @@
       </div>
     </div>
 
-  <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        });
-      }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCIK4Z-9uO_KmcNAexRKsIpCZrgI-I5aA&callback=initMap"
-    async defer></script>
 
 
     <script>
-              // if ('serviceWorker' in navigator) {
-              //   navigator.serviceWorker
-              //            .register('./sw.js');
-              // }
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker
+                         .register('./sw.js');
+              }
 
       </script>
 

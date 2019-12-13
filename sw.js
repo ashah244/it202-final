@@ -1,10 +1,17 @@
 // Set a name for the current cache
-var cacheName = 'final-exam-app'; 
+var cacheName = 'final-exam-app';
 
 // Default files to always cache
 var cacheFiles = [
-	'./',
-	'./index.html'
+	'/it202-final',
+	'/it202-final/index.html',
+	'/it202-final/page-content/about.html',
+	'/it202-final/page-content/answers.html',
+	'/it202-final/page-content/apod.html',
+	'/it202-final/page-content/canvas.html',
+	'/it202-final/page-content/schools.html',
+	'/it202-final/script.js',
+	'/it202-final/style.css'
 ]
 
 
@@ -91,7 +98,7 @@ self.addEventListener('fetch', function(e) {
 
 							// Return the response
 							return response;
-			
+
 				        }); // end caches.open
 
 					})

@@ -1,8 +1,13 @@
 <div class="mdc-typography--headline3">Search Schools</div>
 
-
 <!-- add a select control to let users choose a school category;  you can hard-code the options or dynamically populate them from the primaryCategories variable below-->
+<script>
 
+    function hideScreens() {
+      $(".content").hide();
+    }
+
+    </script>
 
 <button id="searchSchools" class="mdc-button mdc-button--raised">
   <div class="mdc-button__ripple"></div>
@@ -22,12 +27,29 @@
             <span class="mdc-list-item__primary-text"></span>
             <span class="mdc-list-item__secondary-text"></span></span></li>
     <li role="separator" class="mdc-list-divider template"></li>
-  </ul> 
+  </ul>
 
 
 
 
 <script>
+
+    function hideScreens() {
+      $(".content").hide();
+    }
+
+    $("nav.mdc-list a.mdc-list-item").on("click", function(e) {
+       // console.log($(this))
+       let file = "page-content/" + $(this).attr("href").replace("#","") + ".html";
+       $("#content").html("");
+
+       $("#content").load(file);
+            hideScreens();
+       drawer.open = false;
+
+
+
+    });
   var primaryCategories = [{"primary_category":"ES"}
 ,{"primary_category":"HS"}
 ,{"primary_category":"MS"}];
@@ -70,8 +92,8 @@
 
         // append to list
         $("ul#listSchools").append(dividerClone);
-        
-        
+
+
         $("ul#listSchools").append(clone);
 
       });
@@ -79,6 +101,6 @@
   }
 
 
-
+hideScreens();
 
 </script>

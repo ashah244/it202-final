@@ -1,15 +1,35 @@
-<div id="apodContent"></div>
-
-
-
+<html>
+<body>
+<div id="apodContent" class ="content"></div>
+<link rel="manifest" href="/it202-final/manifest.json">
 
 <script>
+  function hideScreens() {
+    $(".content").hide();
+  }
+
+  $("nav.mdc-list a.mdc-list-item").on("click", function(e) {
+     // console.log($(this))
+     let file = "page-content/" + $(this).attr("href").replace("#","") + ".html";
+     $(file).html("");
+
+     $("#content").load(file);
+          hideScreens();
+     drawer.open = false;
+
+
+
+  });
+
   let url = "https://api.nasa.gov/planetary/apod?api_key=nxtMjihbq1ZPBiPcUKOym6IlVMvD4bEeNvJTbS1l";
 
   $.get(url, (response) => {
-    console.log(response);
+    $.each(response, function(i,v){
+      var info = "<br>" + "Title" + v.copyright "<br>";
   })
 
 
 
 </script>
+</body>
+</html>
