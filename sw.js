@@ -11,7 +11,7 @@ var cacheFiles = [
 	'/it202-final/page-content/canvas.html',
 	'/it202-final/page-content/schools.html',
 	'/it202-final/script.js',
-	'/it202-final/style.css'
+	'/it202-final/style.css'	
 ]
 
 
